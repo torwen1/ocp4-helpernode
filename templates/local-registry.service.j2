@@ -5,11 +5,11 @@ After=network.target syslog.target
 [Service]
 Type=simple
 TimeoutStartSec=5m
-%{ if proxy_config and not proxy_config.user~}
+{% if proxy_config is defined and not proxy_config.user is defined %}
 Environment="http_proxy=http://{{ proxy_config.server }}:{{ proxy_config.port}} https://{{ proxy_config.server }}:{{ proxy_config.port}} no_proxy="127.0.0.1,localhost"
-%{ if proxy_config and proxy_config.user~}
+{% if proxy_config is defined and proxy_config.user is defined %}
 Environment="http_proxy=http://{{ proxy_config.user }}:{{ proxy_config.password}}@{{ proxy_config.server }}:{{ proxy_config.port}} https://{{ proxy_config.user }}:{{ proxy_config.password}}@{{ proxy_config.server }}:{{ proxy_config.port}} no_proxy="127.0.0.1,localhost"
-%{ endif ~}
+{% endif %}
 ExecStartPre=-/usr/bin/podman rm "local-registry"
 
 ExecStart=/usr/bin/podman run   --name local-registry -p 5000:5000 \
