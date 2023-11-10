@@ -28,3 +28,5 @@ setup_registry:
   registry_user: "admin"
   registry_password: "admin"
 machineconfig_path: ../machineconfig
+proxy_config:
+  enabled: false
