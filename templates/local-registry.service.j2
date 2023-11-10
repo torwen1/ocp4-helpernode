@@ -7,7 +7,7 @@ Type=simple
 TimeoutStartSec=5m
 {% if proxy_config.enabled and not proxy_config.user is defined %}
 Environment="http_proxy=http://{{ proxy_config.server }}:{{ proxy_config.port}} https://{{ proxy_config.server }}:{{ proxy_config.port}} no_proxy="127.0.0.1,localhost"
-{% if proxy_config.enabled and proxy_config.user is defined %}
+{% elif proxy_config.enabled and proxy_config.user is defined %}
 Environment="http_proxy=http://{{ proxy_config.user }}:{{ proxy_config.password}}@{{ proxy_config.server }}:{{ proxy_config.port}} https://{{ proxy_config.user }}:{{ proxy_config.password}}@{{ proxy_config.server }}:{{ proxy_config.port}} no_proxy="127.0.0.1,localhost"
 {% endif %}
 ExecStartPre=-/usr/bin/podman rm "local-registry"
