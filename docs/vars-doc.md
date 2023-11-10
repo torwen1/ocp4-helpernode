@@ -97,6 +97,30 @@ Explanation of the options you can set:
 
 These variables are used to set up the [dhcp config file](../templates/dhcpd.conf.j2)
 
+## Proxy Section
+
+> **OPTIONAL** if proxy support is required on bastion node and local-registry
+
+This section sets up the proxy support for environments, which have not direct Internet access. It is used to allow the local-registry.service to pull the registry image from the public Docker registry.
+
+```
+proxy_config:
+  enabled: true
+  server: "10.10.10.10"
+  port: "3128"
+  user: "proxyuser"
+  password: "proxypassword"
+```
+
+Explanation of the options you can set:
+
+* `proxy_config.enabled` - Enable, or disable the proxy support. The default is false. True or false are accepted.
+* `proxy_config.server` - This is the IP address or FQDN of the proxy server to use.
+* `proxy_config.user` - This is optional and can be used for proxies requiring user authentication.
+* `proxy_config.password` - This is optional and can be used for proxies requiring user authentication.
+
+These variables are used to set up the [local-registry.service file](../templates/local-registry.service.j2)
+
 ## Bootstrap Node Section
 
 This section defines the bootstrap node configuration
